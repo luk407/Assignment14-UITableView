@@ -4,7 +4,7 @@ import UIKit
 final class AddNewItemToListViewController: UIViewController {
     
     //MARK: - Properties
-    private let mainSV: UIStackView = {
+    private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -32,9 +32,9 @@ final class AddNewItemToListViewController: UIViewController {
         return label
     }()
     
-    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 50))
+    private let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 50))
     
-    let nameTF: UITextField = {
+    let nameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.masksToBounds = true
@@ -77,32 +77,32 @@ final class AddNewItemToListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(selectedImageView)
-        view.addSubview(mainSV)
-        setupMainSV()
+        view.addSubview(mainStackView)
+        setupMainStackView()
     }
     
     //MARK: - Private Methods
-    private func setupMainSV() {
+    private func setupMainStackView() {
         NSLayoutConstraint.activate([
-            mainSV.heightAnchor.constraint(equalToConstant: 200),
-            mainSV.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            mainSV.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            mainSV.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            mainStackView.heightAnchor.constraint(equalToConstant: 200),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
         
-        mainSV.addArrangedSubview(nameLabel)
-        mainSV.addArrangedSubview(nameTF)
-        mainSV.addArrangedSubview(addImageButton)
-        mainSV.addArrangedSubview(addSongButton)
-        setupSelectedIV()
+        mainStackView.addArrangedSubview(nameLabel)
+        mainStackView.addArrangedSubview(nameTextField)
+        mainStackView.addArrangedSubview(addImageButton)
+        mainStackView.addArrangedSubview(addSongButton)
+        setupSelectedImageView()
         setupNameLabel()
-        setupNameTF()
+        setupNameTextField()
         setupAddImageButton()
         setupAddSongButton()
         addSongButtonAction()
     }
     
-    private func setupSelectedIV() {
+    private func setupSelectedImageView() {
         NSLayoutConstraint.activate([
             selectedImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             selectedImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -113,37 +113,37 @@ final class AddNewItemToListViewController: UIViewController {
     
     private func setupNameLabel() {
         NSLayoutConstraint.activate([
-            nameLabel.leadingAnchor.constraint(equalTo: mainSV.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: mainSV.trailingAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
     
-    private func setupNameTF() {
+    private func setupNameTextField() {
         NSLayoutConstraint.activate([
-            nameTF.heightAnchor.constraint(equalToConstant: 40),
-            nameTF.leadingAnchor.constraint(equalTo: mainSV.leadingAnchor),
-            nameTF.trailingAnchor.constraint(equalTo: mainSV.trailingAnchor),
+            nameTextField.heightAnchor.constraint(equalToConstant: 40),
+            nameTextField.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            nameTextField.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
         ])
         
-        nameTF.leftView = paddingView
-        nameTF.leftViewMode = .always
+        nameTextField.leftView = paddingView
+        nameTextField.leftViewMode = .always
     }
     
     private func setupAddImageButton() {
         NSLayoutConstraint.activate([
             addImageButton.heightAnchor.constraint(equalToConstant: 100),
-            addImageButton.leadingAnchor.constraint(equalTo: mainSV.leadingAnchor),
-            addImageButton.trailingAnchor.constraint(equalTo: mainSV.trailingAnchor),
+            addImageButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            addImageButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
         ])
     }
     
     private func setupAddSongButton() {
         NSLayoutConstraint.activate([
             addSongButton.heightAnchor.constraint(equalToConstant: 50),
-            addSongButton.leadingAnchor.constraint(equalTo: mainSV.leadingAnchor),
-            addSongButton.trailingAnchor.constraint(equalTo: mainSV.trailingAnchor),
-            addSongButton.bottomAnchor.constraint(equalTo: mainSV.bottomAnchor)
+            addSongButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            addSongButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+            addSongButton.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor)
         ])
         
     }
@@ -152,18 +152,18 @@ final class AddNewItemToListViewController: UIViewController {
         addSongButton.addAction(UIAction(handler: { [weak self] action in
             self?.addSongAction?()
             self?.selectedImageView.image = nil
-            self?.nameTF.text = ""
+            self?.nameTextField.text = ""
         }), for: .touchUpInside)
     }
     
     @objc private func addButtonTapped() {
-        showIPC()
+        showImagePickerController()
     }
 }
 
 //MARK: - ImagePickerController Delegate
 extension AddNewItemToListViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func showIPC() {
+    func showImagePickerController() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true

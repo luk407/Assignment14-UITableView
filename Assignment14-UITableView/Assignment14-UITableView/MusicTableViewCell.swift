@@ -1,10 +1,10 @@
 
 import UIKit
 
-class MusicTVCell: UITableViewCell {
+class MusicTableViewCell: UITableViewCell {
     
     //MARK: - Properties
-    private let mainSV: UIStackView = {
+    private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 8
@@ -14,7 +14,7 @@ class MusicTVCell: UITableViewCell {
         return stackView
     }()
 
-    private let imageIV: UIImageView = {
+    private let selectedImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
@@ -46,17 +46,17 @@ class MusicTVCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        imageIV.image = nil
+        selectedImageView.image = nil
         nameLabel.text = nil
     }
     
     //MARK: - Configure
     func configureViews(with model: Music) {
-        imageIV.image = model.image
+        selectedImageView.image = model.image
         nameLabel.text = "Name: \(model.name)"
         
-        imageIV.layer.masksToBounds = true
-        imageIV.layer.cornerRadius = 16
+        selectedImageView.layer.masksToBounds = true
+        selectedImageView.layer.cornerRadius = 16
     }
     
     //MARK: - Private Methods
@@ -67,17 +67,17 @@ class MusicTVCell: UITableViewCell {
     }
     
     private func addSubViews() {
-        addSubview(mainSV)
-        mainSV.addArrangedSubview(imageIV)
-        mainSV.addArrangedSubview(nameLabel)
+        addSubview(mainStackView)
+        mainStackView.addArrangedSubview(selectedImageView)
+        mainStackView.addArrangedSubview(nameLabel)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainSV.topAnchor.constraint(equalTo: self.topAnchor),
-            mainSV.leftAnchor.constraint(equalTo: self.leftAnchor),
-            mainSV.rightAnchor.constraint(equalTo: self.rightAnchor),
-            mainSV.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            mainStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            mainStackView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            mainStackView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
 

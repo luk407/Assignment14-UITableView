@@ -1,10 +1,10 @@
 
 import UIKit
 
-final class MainVC: UIViewController {
+final class MainViewController: UIViewController {
     
     // MARK: - Properties
-    private let mainSV: UIStackView = {
+    private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.backgroundColor = .white
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -15,7 +15,7 @@ final class MainVC: UIViewController {
         return stackView
     }()
     
-    private let musicTV: UITableView = {
+    private let musicTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,21 +53,21 @@ final class MainVC: UIViewController {
         searchBar.placeholder = " Search..."
         searchBar.isTranslucent = false
         
-        view.addSubview(mainSV)
-        setupMainSV()
+        view.addSubview(mainStackView)
+        setupMainStackView()
     }
 
     //MARK: - Private Methods
-    private func setupMainSV() {
+    private func setupMainStackView() {
         NSLayoutConstraint.activate([
-            mainSV.topAnchor.constraint(equalTo: view.topAnchor, constant: 64),
-            mainSV.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            mainSV.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            mainSV.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 64),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
         ])
         
-        mainSV.addArrangedSubview(musicTV)
-        setupMusicTV()
+        mainStackView.addArrangedSubview(musicTableView)
+        setupMusicTableView()
         registerMusicTVCells()
     }
     
@@ -76,23 +76,23 @@ final class MainVC: UIViewController {
     }
     
     @objc private func editTapped() {
-        if musicTV.isEditing {
-            musicTV.isEditing = false
+        if musicTableView.isEditing {
+            musicTableView.isEditing = false
         } else {
-            musicTV.isEditing = true
+            musicTableView.isEditing = true
         }
     }
 
-    private func setupMusicTV() {
+    private func setupMusicTableView() {
         NSLayoutConstraint.activate([
-            musicTV.heightAnchor.constraint(equalToConstant: 500),
-            musicTV.bottomAnchor.constraint(equalTo: mainSV.bottomAnchor),
-            musicTV.leadingAnchor.constraint(equalTo: mainSV.leadingAnchor),
-            musicTV.trailingAnchor.constraint(equalTo: mainSV.trailingAnchor),
+            musicTableView.heightAnchor.constraint(equalToConstant: 500),
+            musicTableView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor),
+            musicTableView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            musicTableView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
         ])
         
-        musicTV.dataSource = self
-        musicTV.delegate = self
+        musicTableView.dataSource = self
+        musicTableView.delegate = self
     }
     
     private func navigateToAddPage() {
@@ -100,20 +100,20 @@ final class MainVC: UIViewController {
         self.navigationController?.pushViewController(addPage, animated: true)
         
         addPage.addSongAction = {
-            self.filteredMusic.append(Music(image: addPage.selectedImageView.image ?? UIImage(named: "x.square")!, name: addPage.nameTF.text ?? ""))
-            self.musics.append(Music(image: addPage.selectedImageView.image ?? UIImage(named: "x.square")!, name: addPage.nameTF.text ?? ""))
-            self.musicTV.reloadData()
+            self.filteredMusic.append(Music(image: addPage.selectedImageView.image ?? UIImage(named: "x.square")!, name: addPage.nameTextField.text ?? ""))
+            self.musics.append(Music(image: addPage.selectedImageView.image ?? UIImage(named: "x.square")!, name: addPage.nameTextField.text ?? ""))
+            self.musicTableView.reloadData()
         }
     }
     
     private func registerMusicTVCells() {
-        musicTV.register(MusicTVCell.self, forCellReuseIdentifier: "musicCell")
+        musicTableView.register(MusicTableViewCell.self, forCellReuseIdentifier: "musicCell")
     }
     
 }
 
 // MARK: - TableView DataSource
-extension MainVC: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         filteredMusic.count
@@ -123,7 +123,7 @@ extension MainVC: UITableViewDataSource {
         let cell: UITableViewCell
         let music = filteredMusic[indexPath.row]
         cell = tableView.dequeueReusableCell(withIdentifier: "musicCell", for: indexPath)
-        if let musicCell = cell as? MusicTVCell {
+        if let musicCell = cell as? MusicTableViewCell {
             musicCell.configureViews(with: music)
         }
         return cell
@@ -142,7 +142,7 @@ extension MainVC: UITableViewDataSource {
             if let index = musics.firstIndex(where: {$0 === musicToDelete}) {
                 musics.remove(at: index)
             }
-            musicTV.deleteRows(at: [indexPath], with: .automatic)
+            musicTableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
     
@@ -167,7 +167,7 @@ extension MainVC: UITableViewDataSource {
 }
 
 // MARK: - TableView Delegate
-extension MainVC: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsViewController = ItemDetailsViewController()
         detailsViewController.music = filteredMusic[indexPath.row]
@@ -176,11 +176,11 @@ extension MainVC: UITableViewDelegate {
 }
 
 //MARK: - SearchBar Delegate
-extension MainVC: UISearchBarDelegate {
+extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredMusic = searchText.isEmpty ? musics : musics.filter { (item: Music) -> Bool in
             return item.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
-        musicTV.reloadData()
+        musicTableView.reloadData()
     }
 }

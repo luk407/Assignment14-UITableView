@@ -4,7 +4,7 @@ import UIKit
 final class ItemDetailsViewController: UIViewController {
     
     //MARK: - Properties
-    private let imageIV: UIImageView = {
+    private let selectedImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,11 +19,12 @@ final class ItemDetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.numberOfLines = 2
         return label
     }()
     
-    private lazy var mainSV: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [imageIV, nameLabel])
+    private lazy var mainStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [selectedImageView, nameLabel])
         stackView.backgroundColor = .white
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -40,10 +41,10 @@ final class ItemDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        view.addSubview(mainSV)
+        view.addSubview(mainStackView)
         
-        setupMainSVConstraints()
-        setupImageIV()
+        setupMainStackViewConstraints()
+        setupSelectedImageView()
         setupNameLabelConstraints()
         configureViews()
     }
@@ -51,35 +52,35 @@ final class ItemDetailsViewController: UIViewController {
     //MARK: - Methods
     func configureViews() {
         guard let music else { return }
-        imageIV.image = music.image
+        selectedImageView.image = music.image
         nameLabel.text = "Name: \(music.name)"
     }
     
     //MARK: - Private Methods
-    private func setupImageIV() {
+    private func setupSelectedImageView() {
         NSLayoutConstraint.activate([
-            imageIV.topAnchor.constraint(equalTo: mainSV.topAnchor),
-            imageIV.leadingAnchor.constraint(equalTo: mainSV.leadingAnchor, constant: 20),
-            imageIV.trailingAnchor.constraint(equalTo: mainSV.trailingAnchor, constant: -20),
-            imageIV.heightAnchor.constraint(equalTo: imageIV.widthAnchor)
+            selectedImageView.topAnchor.constraint(equalTo: mainStackView.topAnchor),
+            selectedImageView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 20),
+            selectedImageView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -20),
+            selectedImageView.heightAnchor.constraint(equalTo: selectedImageView.widthAnchor)
         ])
     }
     
     private func setupNameLabelConstraints() {
         NSLayoutConstraint.activate([
             nameLabel.heightAnchor.constraint(equalToConstant: 100),
-            nameLabel.bottomAnchor.constraint(equalTo: mainSV.bottomAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: mainSV.leadingAnchor, constant: 20),
-            nameLabel.trailingAnchor.constraint(equalTo: mainSV.trailingAnchor, constant: -20),
+            nameLabel.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 20),
+            nameLabel.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -20),
         ])
     }
     
-    private func setupMainSVConstraints() {
+    private func setupMainStackViewConstraints() {
         NSLayoutConstraint.activate([
-            mainSV.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            mainSV.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            mainSV.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            mainSV.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20)
+            mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20)
         ])
     }
 }

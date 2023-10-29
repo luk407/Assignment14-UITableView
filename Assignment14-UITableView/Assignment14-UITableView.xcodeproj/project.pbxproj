@@ -15,7 +15,7 @@
 		A14C5CFA2AED5F8E00B908EA /* AddNewItemToListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C5CF92AED5F8E00B908EA /* AddNewItemToListViewController.swift */; };
 		A14C5CFC2AED61C800B908EA /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C5CFB2AED61C800B908EA /* MusicModel.swift */; };
 		A14C5CFE2AED657700B908EA /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C5CFD2AED657700B908EA /* ItemDetailsViewController.swift */; };
-		A14C5D042AED74C700B908EA /* MusicTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C5D032AED74C700B908EA /* MusicTVCell.swift */; };
+		A14C5D042AED74C700B908EA /* MusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C5D032AED74C700B908EA /* MusicTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		A14C5CF92AED5F8E00B908EA /* AddNewItemToListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewItemToListViewController.swift; sourceTree = "<group>"; };
 		A14C5CFB2AED61C800B908EA /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
 		A14C5CFD2AED657700B908EA /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
-		A14C5D032AED74C700B908EA /* MusicTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTVCell.swift; sourceTree = "<group>"; };
+		A14C5D032AED74C700B908EA /* MusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 				A14C5CE52AED4A9D00B908EA /* AppDelegate.swift */,
 				A14C5CE72AED4A9D00B908EA /* SceneDelegate.swift */,
 				A14C5CE92AED4A9D00B908EA /* MainViewController.swift */,
-				A14C5D032AED74C700B908EA /* MusicTVCell.swift */,
+				A14C5D032AED74C700B908EA /* MusicTableViewCell.swift */,
 				A14C5CFD2AED657700B908EA /* ItemDetailsViewController.swift */,
 				A14C5CFB2AED61C800B908EA /* MusicModel.swift */,
 				A14C5CF92AED5F8E00B908EA /* AddNewItemToListViewController.swift */,
@@ -149,7 +149,7 @@
 				A14C5CFE2AED657700B908EA /* ItemDetailsViewController.swift in Sources */,
 				A14C5CEA2AED4A9D00B908EA /* MainViewController.swift in Sources */,
 				A14C5CE62AED4A9D00B908EA /* AppDelegate.swift in Sources */,
-				A14C5D042AED74C700B908EA /* MusicTVCell.swift in Sources */,
+				A14C5D042AED74C700B908EA /* MusicTableViewCell.swift in Sources */,
 				A14C5CE82AED4A9D00B908EA /* SceneDelegate.swift in Sources */,
 				A14C5CFC2AED61C800B908EA /* MusicModel.swift in Sources */,
 				A14C5CFA2AED5F8E00B908EA /* AddNewItemToListViewController.swift in Sources */,
